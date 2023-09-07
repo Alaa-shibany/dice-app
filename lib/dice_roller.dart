@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+final randomizer1 = Random();
+final randomizer2 = Random();
+
 class DiceRoller extends StatefulWidget {
   const DiceRoller({super.key});
 
@@ -11,15 +14,17 @@ class DiceRoller extends StatefulWidget {
 
 class _DiceRollerState extends State<DiceRoller> {
   var activeImage = 'assets/images/dice-1.png';
-  var currentDiceRoll = 1;
+  var currentDiceRoll1 = 1;
+  var currentDiceRoll2 = 1;
 
   void rollDice() async {
     for (int i = 0; i < 15; i++) {
       setState(() {
-        currentDiceRoll = Random().nextInt(6) + 1;
+        currentDiceRoll1 = randomizer1.nextInt(6) + 1;
+        Future.delayed(const Duration(milliseconds: 30));
+        currentDiceRoll2 = randomizer2.nextInt(6) + 1;
       });
       await Future.delayed(const Duration(milliseconds: 100));
-      print(i);
     }
   }
 
@@ -31,7 +36,13 @@ class _DiceRollerState extends State<DiceRoller> {
       children: [
         Center(
           child: Image.asset(
-            'assets/images/dice-$currentDiceRoll.png',
+            'assets/images/dice-$currentDiceRoll2.png',
+            width: 200,
+          ),
+        ),
+        Center(
+          child: Image.asset(
+            'assets/images/dice-$currentDiceRoll1.png',
             width: 200,
           ),
         ),
